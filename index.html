@@ -13,6 +13,8 @@
 
     <button id="connect-btn">Connect</button>
     <button id="disconnect-btn">Disconnect</button>
+
+    <div id="relayMessage"></div>
     <!-- <button id="send-btn">Send</button>  -->
 </body>
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
@@ -52,6 +54,8 @@
     
 
     async function connectToWallet() {
+        relayMessage('Relay started...', 0);
+        
         const connectedWallet = await tonConnectUI.connectWallet();
 
         // const transaction = {
@@ -67,6 +71,15 @@
         // await tonConnectUI.sendTransaction(transaction);
 
         //console.log(connectedWallet);
+        setTimeout(function() {
+            relayMessage('2 seconds passed...', 2000);
+        }, 2000);
+    }
+
+    function relayMessage(message, delay) {
+        setTimeout(function() {
+            document.getElementById('relayMessage').innerText = message;
+        }, delay);
     }
     
     document.getElementById("connect-btn").addEventListener('click', async () => {
