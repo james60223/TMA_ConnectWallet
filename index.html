@@ -31,14 +31,14 @@
         console.log(connectedWallet);
     }
     
-    document.getElementById("ton-connect").addEventListener('click', async () => {
-        // Call the function
-        connectToWallet().then(async () => {
+    // document.getElementById("ton-connect").addEventListener('click', async () => {
+    //     // Call the function
+    //     connectToWallet().then(async () => {
             
-        }).catch(error => {
-            console.error("Error connecting to wallet:", error);
-        });
-    });
+    //     }).catch(error => {
+    //         console.error("Error connecting to wallet:", error);
+    //     });
+    // });
     
     document.getElementById("send-btn").addEventListener('click', async () => {
         const transaction = {
