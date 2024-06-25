@@ -7,12 +7,12 @@
 </head>
 <body>
     <div>
-        <h2>UQDWLxE1akNmxQTTQsWmtnFMFAnJcGGR2iOmYw62IRdhC077</h2>
+        <p>UQDWLxE1akNmxQTTQsWmtnFMFAnJcGGR2iOmYw62IRdhC077</p>
     </div>
 	<div id="ton-connect"></div>
-
+<!-- 
     <button id="disconnect-btn">Disconnect</button>
-    <button id="send-btn">Send</button>
+    <button id="send-btn">Send</button> -->
 </body>
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 <script>
@@ -28,19 +28,6 @@
     async function connectToWallet() {
         const connectedWallet = await tonConnectUI.connectWallet();
         // Do something with connectedWallet if needed
-        console.log(connectedWallet);
-    }
-    
-    // document.getElementById("ton-connect").addEventListener('click', async () => {
-    //     // Call the function
-    //     connectToWallet().then(async () => {
-            
-    //     }).catch(error => {
-    //         console.error("Error connecting to wallet:", error);
-    //     });
-    // });
-    
-    document.getElementById("send-btn").addEventListener('click', async () => {
         const transaction = {
             validUntil: Math.floor(Date.now() / 1000) + 60,
             messages: [
@@ -52,11 +39,35 @@
         };
     
         const result = await tonConnectUI.sendTransaction(transaction);
-    });
+        // console.log(connectedWallet);
+    }
+    
+    // document.getElementById("ton-connect").addEventListener('click', async () => {
+    //     // Call the function
+    //     connectToWallet().then(async () => {
+            
+    //     }).catch(error => {
+    //         console.error("Error connecting to wallet:", error);
+    //     });
+    // });
+    
+    // document.getElementById("send-btn").addEventListener('click', async () => {
+    //     const transaction = {
+    //         validUntil: Math.floor(Date.now() / 1000) + 60,
+    //         messages: [
+    //             {
+    //                 address: "UQDWLxE1akNmxQTTQsWmtnFMFAnJcGGR2iOmYw62IRdhC077", // destination address
+    //                 amount: "20000000" //Toncoin in nanotons
+    //             }
+    //         ]
+    //     };
+    
+    //     const result = await tonConnectUI.sendTransaction(transaction);
+    // });
 
-    document.getElementById("disconnect-btn").addEventListener('click', async () => {
-        console.log('ADFASDFASDFA');
-        await tonConnectUI.disconnect();
-    });
+    // document.getElementById("disconnect-btn").addEventListener('click', async () => {
+    //     console.log('ADFASDFASDFA');
+    //     await tonConnectUI.disconnect();
+    // });
 </script>
 </html>
