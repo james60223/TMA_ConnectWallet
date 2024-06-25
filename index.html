@@ -9,10 +9,11 @@
     <div>
         <p>UQDWLxE1akNmxQTTQsWmtnFMFAnJcGGR2iOmYw62IRdhC077</p>
     </div>
-	<div id="ton-connect"></div>
-<!-- 
+	<div id="ton-connect" style="display: none;"></div>
+
+    <button id="connect-btn">Connect</button>
     <button id="disconnect-btn">Disconnect</button>
-    <button id="send-btn">Send</button> -->
+    <!-- <button id="send-btn">Send</button>  -->
 </body>
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 <script>
@@ -21,9 +22,31 @@
         buttonRootId: 'ton-connect'
     });
 
-    // tonConnectUI.uiOptions = {
-    //     twaReturnUrl: 'https://t.me/bot'
-    // };
+    tonConnectUI.uiOptions = {
+        twaReturnUrl: 'https://t.me/bot'
+    };
+
+    const currentWallet = tonConnectUI.wallet;
+    console.log('currentWallet', currentWallet);
+    if(currentWallet) {
+        document.getElementById('connect-btn').style.display = 'none';
+    }else{
+        document.getElementById('disconnect-btn').style.display = 'none';
+    }
+
+    const unsubscribe = tonConnectUI.onStatusChange(
+        walletAndwalletInfo => {
+            // update state/reactive variables to show updates in the ui
+            console.log('walletAndwalletInfo', walletAndwalletInfo);
+            if(walletAndwalletInfo) {
+                document.getElementById('connect-btn').style.display = 'none';
+                document.getElementById('disconnect-btn').style.display = 'block';
+            }else{
+                document.getElementById('connect-btn').style.display = 'block';
+                document.getElementById('disconnect-btn').style.display = 'none';
+            }
+        }
+    );
 
     async function connectToWallet() {
         const connectedWallet = await tonConnectUI.connectWallet();
@@ -39,17 +62,17 @@
         };
     
         const result = await tonConnectUI.sendTransaction(transaction);
+        document.getElementById('connect-btn').style.display = 'none';
+        document.getElementById('disconnect-btn').style.display = 'block';
         // console.log(connectedWallet);
     }
     
-    // document.getElementById("ton-connect").addEventListener('click', async () => {
-    //     // Call the function
-    //     connectToWallet().then(async () => {
-            
-    //     }).catch(error => {
-    //         console.error("Error connecting to wallet:", error);
-    //     });
-    // });
+    document.getElementById("connect-btn").addEventListener('click', async () => {
+        // Call the function
+        connectToWallet().catch(error => {
+            console.error("Error connecting to wallet:", error);
+        });
+    });
     
     // document.getElementById("send-btn").addEventListener('click', async () => {
     //     const transaction = {
@@ -65,9 +88,10 @@
     //     const result = await tonConnectUI.sendTransaction(transaction);
     // });
 
-    // document.getElementById("disconnect-btn").addEventListener('click', async () => {
-    //     console.log('ADFASDFASDFA');
-    //     await tonConnectUI.disconnect();
-    // });
+    document.getElementById("disconnect-btn").addEventListener('click', async () => {
+        await tonConnectUI.disconnect();
+        document.getElementById('connect-btn').style.display = 'block';
+        document.getElementById('disconnect-btn').style.display = 'none';
+    });
 </script>
 </html>
