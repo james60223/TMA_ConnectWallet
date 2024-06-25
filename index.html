@@ -9,9 +9,9 @@
     <div>
         <h2>UQDWLxE1akNmxQTTQsWmtnFMFAnJcGGR2iOmYw62IRdhC077</h2>
     </div>
-	<div onclick="onConnectWallet" id="ton-connect"></div>
+	<div id="ton-connect"></div>
 
-    <div onclick="disconnectWallet">Disconnect</div>
+    <button id="disconnect-btn">Disconnect</button>
 </body>
 <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 <script>
@@ -29,8 +29,8 @@
         // Do something with connectedWallet if needed
         console.log(connectedWallet);
     }
-
-    const onConnectWallet = async () => {
+    
+    document.getElementById("ton-connect").addEventListener('click', async () => {
         // Call the function
         connectToWallet().then(async () => {
             const transaction = {
@@ -42,15 +42,16 @@
                     }
                 ]
             };
-
+    
             const result = await tonConnectUI.sendTransaction(transaction);
         }).catch(error => {
             console.error("Error connecting to wallet:", error);
         });
-    }
+    });
 
-    const disconnectWallet = async () => {
+    document.getElementById("disconnect-btn").addEventListener('click', async () => {
+        console.log('ADFASDFASDFA');
         await tonConnectUI.disconnect();
-    }
+    });
 </script>
 </html>
