@@ -22,9 +22,9 @@
         buttonRootId: 'ton-connect'
     });
 
-    tonConnectUI.uiOptions = {
-        twaReturnUrl: 'https://t.me/bot'
-    };
+    // tonConnectUI.uiOptions = {
+    //     twaReturnUrl: 'https://t.me/bot'
+    // };
 
     const currentWallet = tonConnectUI.wallet;
     console.log('currentWallet', currentWallet);
@@ -50,8 +50,6 @@
 
     async function connectToWallet() {
         const connectedWallet = await tonConnectUI.connectWallet();
-        document.getElementById('connect-btn').style.display = 'none';
-        document.getElementById('disconnect-btn').style.display = 'block';
         setTimeout(async () => {
             // Do something with connectedWallet if needed
             const transaction = {
@@ -92,8 +90,6 @@
 
     document.getElementById("disconnect-btn").addEventListener('click', async () => {
         await tonConnectUI.disconnect();
-        document.getElementById('connect-btn').style.display = 'block';
-        document.getElementById('disconnect-btn').style.display = 'none';
     });
 </script>
 </html>
