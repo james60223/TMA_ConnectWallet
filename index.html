@@ -53,6 +53,8 @@
 
     async function connectToWallet() {
         const connectedWallet = await tonConnectUI.connectWallet();
+        connectWallet = connectedWallet;
+        setInnerHtml();
         setTimeout(function() {
             sendTransaction();
         }, 2000);
