@@ -26,16 +26,13 @@
     };
 
     let connectWallet = tonConnectUI.wallet;
-    setInnerHtml();
-
-    function setInnerHtml() {
-        if(connectWallet) {
-            document.getElementById('connect-btn').style.display = 'none';
-        }
-        else{
-            document.getElementById('send-transaction').style.display = 'block';
-        }
+    if(connectWallet) {
+        document.getElementById('connect-btn').style.display = 'none';
     }
+    else{
+        document.getElementById('send-transaction').style.display = 'block';
+    }
+    
 
     document.getElementById("connect-btn").addEventListener('click', async () => {
         // Call the function
