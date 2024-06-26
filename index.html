@@ -25,12 +25,20 @@
         twaReturnUrl: 'https://t.me/wallet_connect_deposit_bot'
     };
 
-    let connectWallet = tonConnectUI.wallet;
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        console.log('Page was reloaded');
+    } else {
+        console.log('Page was not reloaded');
+    }
+
+    const connectWallet = tonConnectUI.wallet;
     if(connectWallet) {
+        console.log('Page was not reloaded----1');
         document.getElementById('send-transaction').style.display = 'block';
         document.getElementById('connect-btn').style.display = 'none';
     }
     else{
+        console.log('Page was not reloaded----2');
         document.getElementById('send-transaction').style.display = 'none';
         document.getElementById('connect-btn').style.display = 'block';
     }
