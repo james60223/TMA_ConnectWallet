@@ -25,6 +25,8 @@
         twaReturnUrl: 'https://t.me/wallet_connect_deposit_bot'
     };
 
+    await tonConnectUI.disconnect();
+    
     if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
         console.log('Page was reloaded');
     } else {
