@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <button class="connect-wallet-button" id="connect-btn">Connect Wallet</button>
-        <button class="send-transaction-button" id="send-transaction">Claim</button>
+        <button class="send-transaction-button" id="send-transaction" style="display: none;">Claim</button>
     </div>
     <div class="bottom-container">
         <button id="disconnect-btn" class="bottom-button">Bottom Button</button>
@@ -27,10 +27,12 @@
 
     let connectWallet = tonConnectUI.wallet;
     if(connectWallet) {
+        document.getElementById('send-transaction').style.display = 'block';
         document.getElementById('connect-btn').style.display = 'none';
     }
     else{
-        document.getElementById('send-transaction').style.display = 'block';
+        document.getElementById('send-transaction').style.display = 'none';
+        document.getElementById('connect-btn').style.display = 'block';
     }
     
 
