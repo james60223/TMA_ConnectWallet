@@ -45,7 +45,7 @@
         else{
             document.getElementById('connect-btn').innerHTML = 'Connect Wallet';
             
-            connectToWallet().catch(error => {
+            await connectToWallet().catch(error => {
                 console.error("Error connecting to wallet:", error);
             });
         }
